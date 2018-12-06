@@ -10,10 +10,10 @@ Liquid-dashboard is able to show:
 You can check a working example of the dashboard [here](http://vaccaro.tech:3838/liquid/).
 
 ## Main dashboard
-![Price dashboard](https://raw.githubusercontent.com/valerio-vaccaro/Liquid-dashboard/master/screenshots/Main.png)
+![Price dashboard](https://raw.githubusercontent.com/valerio-vaccaro/Liquid-dashboard/master/screenshots/main.png)
 
 ## OP_RETURN dashboard
-![OP_RETURN dashboard](https://raw.githubusercontent.com/valerio-vaccaro/Liquid-dashboard/master/screenshots/op_return.png)
+![OP_RETURN dashboard](https://raw.githubusercontent.com/valerio-vaccaro/Liquid-dashboard/master/screenshots/opreturn.png)
 
 # Make it work
 Follows this steps in order to clone this project:
