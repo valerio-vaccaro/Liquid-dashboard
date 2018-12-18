@@ -21,6 +21,22 @@ server <- function(input, output) {
   load("./data/liquid_transactions_op_return.RData")
   
   today <- as.numeric(as.POSIXct(Sys.Date()))*1000
+  
+  
+  output$dateSelector <- renderUI({
+      if(input$radio==1) days=1
+      else if(input$radio==2) days=7
+      else if(input$radio==3) days=30
+      MIN <- min(transactions$height)
+      MAX <- max(transactions$height)
+      sliderInput(
+        "height",
+        "Select start and stop height",
+        min = MIN,
+        max = MAX ,
+        value = c(MAX -  days*24*60,  MAX)
+      )
+  })
    
    output$dateBox <- renderInfoBox({
       infoBox(
@@ -58,7 +74,21 @@ server <- function(input, output) {
    transactions$kind <- as.factor(transactions$kind)
    
    output$a11 <- renderPlot({
-      ggplot(data=transactions, aes(x=height, y=size, color=kind, alpha=0.1)) +
+      filter <- transactions$kind == "none"
+      if (1 %in% input$checkGroup)
+        filter <- filter | (transactions$kind == "Coinbase")
+      if (2 %in% input$checkGroup)
+        filter <- filter | (transactions$kind == "Pegin")
+      if (3 %in% input$checkGroup)
+        filter <- filter | (transactions$kind == "Pegout")
+      if (4 %in% input$checkGroup)
+        filter <- filter | (transactions$kind == "Standard")
+      
+      filter_time <- (transactions$height >= input$height[[1]]) & (transactions$height <= input$height[[2]]) 
+      
+      filter <- filter & filter_time
+        
+      ggplot(data=transactions[filter, ], aes(x=height, y=size, color=kind, alpha=0.1)) +
          geom_point() +
          labs(title="Liquid transaction size",
               x ="Height", y = "Size") +
@@ -66,7 +96,21 @@ server <- function(input, output) {
    })
    
    output$a12 <- renderPlot({
-      ggplot(data=transactions, aes(x=size, fill=kind)) +
+      filter <- transactions$kind == "none"
+      if (1 %in% input$checkGroup)
+        filter <- filter | (transactions$kind == "Coinbase")
+      if (2 %in% input$checkGroup)
+        filter <- filter | (transactions$kind == "Pegin")
+      if (3 %in% input$checkGroup)
+        filter <- filter | (transactions$kind == "Pegout")
+      if (4 %in% input$checkGroup)
+        filter <- filter | (transactions$kind == "Standard")
+      
+      filter_time <- (transactions$height >= input$height[[1]]) & (transactions$height <= input$height[[2]]) 
+      
+      filter <- filter & filter_time
+      
+      ggplot(data=transactions[filter, ], aes(x=size, fill=kind)) +
          geom_histogram() +
          labs(title="Liquid transaction size",
               x ="Size", y = "#transactions") +
@@ -74,7 +118,21 @@ server <- function(input, output) {
    })
    
    output$a21 <- renderPlot({
-      ggplot(data=transactions, aes(x=height, y=fee, color=kind, alpha=0.1)) +
+      filter <- transactions$kind == "none"
+      if (1 %in% input$checkGroup)
+        filter <- filter | (transactions$kind == "Coinbase")
+      if (2 %in% input$checkGroup)
+        filter <- filter | (transactions$kind == "Pegin")
+      if (3 %in% input$checkGroup)
+        filter <- filter | (transactions$kind == "Pegout")
+      if (4 %in% input$checkGroup)
+        filter <- filter | (transactions$kind == "Standard")
+      
+      filter_time <- (transactions$height >= input$height[[1]]) & (transactions$height <= input$height[[2]]) 
+      
+      filter <- filter & filter_time
+      
+      ggplot(data=transactions[filter, ], aes(x=height, y=fee, color=kind, alpha=0.1)) +
          geom_point() +
          labs(title="Liquid transaction fee",
               x ="Height", y = "Fee") +
@@ -82,7 +140,21 @@ server <- function(input, output) {
    })
    
    output$a22 <- renderPlot({
-      ggplot(data=transactions, aes(x=fee, fill=kind)) +
+      filter <- transactions$kind == "none"
+      if (1 %in% input$checkGroup)
+        filter <- filter | (transactions$kind == "Coinbase")
+      if (2 %in% input$checkGroup)
+        filter <- filter | (transactions$kind == "Pegin")
+      if (3 %in% input$checkGroup)
+        filter <- filter | (transactions$kind == "Pegout")
+      if (4 %in% input$checkGroup)
+        filter <- filter | (transactions$kind == "Standard")
+      
+      filter_time <- (transactions$height >= input$height[[1]]) & (transactions$height <= input$height[[2]])
+      
+      filter <- filter & filter_time
+     
+      ggplot(data=transactions[filter, ], aes(x=fee, fill=kind)) +
          geom_histogram() +
          labs(title="Liquid transaction fee",
               x ="Fee", y = "#transactions") +

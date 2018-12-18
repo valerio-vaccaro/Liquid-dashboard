@@ -10,10 +10,23 @@ ui <- dashboardPage(
                 sidebarMenu(
                         menuItem("Statistics", tabName = "dashboard_statistics", icon = icon("dashboard")),
                         menuItem("OP_Return", tabName = "dashboard_op_return", icon = icon("dashboard")),
-                        menuItem("Credits", tabName = "credits", icon = icon("th"))
+                        menuItem("Credits", tabName = "credits", icon = icon("th")),
+                        checkboxGroupInput("checkGroup", 
+                            label = "Tx kind", 
+                            choices = list(
+                                "Coinbase" = 1, 
+                                "Pegin" = 2, 
+                                "Pegout" = 3,
+                                "Standard" = 4),
+                            selected = c(2,3,4)),
+                        uiOutput("dateSelector"),
+                        radioButtons("radio", label = "Period",
+                            choices = list("Last day" = 1, "Last week" = 2, "Last month" = 3), 
+                            selected = 2)
                 )
         ),
         dashboardBody(
+                tags$head(tags$link(rel = "shortcut icon", href = "http://vaccaro.tech/favicon.ico")),
                 tabItems(
                         # dashboard content
                         tabItem(tabName = "dashboard_statistics",

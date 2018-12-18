@@ -45,7 +45,7 @@ newTransactions$vin_is_coinbase <- sapply(lapply(newTransactions$vin, `[[`, c("i
 #newTransactions$vin_issuance <- sapply(lapply(newTransactions$vin, "[[", c("issuance")), `paste`)
 
 newTransactions$vout_is_pegout <- FALSE
-newTransactions$vout_is_pegout[sapply(lapply(lapply(transactions$vout, `[[`, c("pegout")),"is.na"), `%in%`, x = FALSE)] <- TRUE
+newTransactions$vout_is_pegout[sapply(lapply(lapply(newTransactions$vout, `[[`, c("pegout")),"is.na"), `%in%`, x = FALSE)] <- TRUE
 
 newTransactions$vout_type <- lapply(newTransactions$vout, `[[`, c("scriptpubkey_type"))
 newTransactions$op_return <- sapply(newTransactions$vout_type, `%in%`, x = "op_return")
