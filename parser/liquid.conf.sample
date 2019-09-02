@@ -1,0 +1,13 @@
+[MYSQL]
+host:
+username:
+password:
+database:
+
+[LIQUID]
+host:
+port:
+username:
+password:
+wallet:
+passphrase:
