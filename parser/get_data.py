@@ -3,7 +3,6 @@ import configparser
 import mysql.connector
 import json
 import requests
-import threading
 
 debug = True
 
@@ -182,26 +181,4 @@ def getBlock(i):
 
 lastBlock = host.call('getblockchaininfo')['blocks']
 for i in range(0, lastBlock):
-    #x = threading.Thread(target=getBlock, args=(i,))
-    #x.start()
    getBlock(i)
-
-
-# test
-#pegin 238269f745469231143ee3aed3cf22df97984724a85b74cf663065349e31e8cb
-#getBlock(438171)
-
-#pegout 8f7fd6a11dd1e81e8edb0a192ca089d82b27f7765056bb5349937b583ad61e44
-#getBlock(437332)
-
-#confidential issuance cfda317d374da98602dffb777869ea0f1434f41cf1306281e6dc56ca83eb45e8
-#getBlock(46171)
-
-#not confidential issuance 9195cddbcbab161213c3e676a6c115f5a082f5cef50bb000086d92688189340d
-#getBlock(344282)
-
-#not confidential reissuance 4b5ff2e1cdfb18321667d3d7bf0df693697b19d110c0aab0489bfdb8a146ee10
-#getBlock(311813)
-
-#opreturn a7cccd0debb3cc93e6e56769ec25622ac16cf3dc18ef9cbb96e414b2839fe088
-#getBlock(72918)
